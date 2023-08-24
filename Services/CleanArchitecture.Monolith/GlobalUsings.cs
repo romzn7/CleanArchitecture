@@ -1,0 +1,9 @@
+﻿global using CleanArchitecture.Services.Person.API.DependencyResolution;
+global using CleanArchitecture.Services.Shared.Extensions;
+global using CleanArchitecture.Services.Shared.Middlewares;
+global using Microsoft.AspNetCore.HttpOverrides;
+global using Serilog;
+global using System.Globalization;
+global using CleanArchitecture.Services.Person.Infrastructure;
+global using Swashbuckle.AspNetCore.Filters;
+global using System.Reflection;
