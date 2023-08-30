@@ -210,18 +210,18 @@ public class PersonTests
         _Person.DomainEvents.Should().Contain(d => d.GetType() == typeof(PersonDeletedEvent));
     }
 
-    //[TestCase(null)]
-    //public void SetGender_should_fail(Gender gender)
-    //{
-    //    // Arrange
-    //    _Person = _CreateInstance();
-    //    _gender = gender;
-    //    // Assert
-    //    TestDelegate sut = () => _Person.SetGender(_gender);
-    //    var assertion = gender == null ? Assert.Throws<ArgumentNullException>(sut)! :
-    //          Assert.Throws<ArgumentException>(sut)!;
-    //    assertion.ParamName.Should().Be("gender");
-    //}
+    [TestCase(null)]
+    public void SetGender_should_fail(Gender gender)
+    {
+        // Arrange
+        _Person = _CreateInstance();
+        _gender = gender;
+        // Assert
+        TestDelegate sut = () => _Person.SetGender(_gender);
+        var assertion = gender == null ? Assert.Throws<ArgumentNullException>(sut)! :
+              Assert.Throws<ArgumentException>(sut)!;
+        assertion.ParamName.Should().Be("gender");
+    }
 
     [Test]
     public void SetGender_should_succeed()
