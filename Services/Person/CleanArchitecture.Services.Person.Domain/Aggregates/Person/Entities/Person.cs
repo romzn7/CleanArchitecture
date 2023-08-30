@@ -35,11 +35,10 @@ public class Person : AuditableEntity, IAggregateRoot
     {
         this.IsActive = false;
 
-        if (!IsTransient())
-        {
-            this.UpdatedBy = Guard.Against.NegativeOrZero(userId);
-            _AddPersonDeletedEvent();
-        }
+
+        this.UpdatedBy = Guard.Against.NegativeOrZero(userId);
+        _AddPersonDeletedEvent();
+
     }
 
     public void UpdatePerson(string name, string email, int age, int updatedBy)
@@ -66,40 +65,36 @@ public class Person : AuditableEntity, IAggregateRoot
 
         _address.Add(address);
 
-        if (!IsTransient())
-        {
-            this.UpdatedBy = Guard.Against.NegativeOrZero(userId);
-            _AddPersonUpdatedEvent();
-        }
+        this.AddedBy = Guard.Against.NegativeOrZero(userId);
+        _AddAddressAddedEvent(address);
+
     }
 
     public void ClearAddress(int userId)
     {
         _address.Clear();
 
-        if (!IsTransient())
-        {
-            this.UpdatedBy = Guard.Against.NegativeOrZero(userId);
-            _AddAddressClearedEvent();
-            _AddPersonUpdatedEvent();
-        }
+
+        this.UpdatedBy = Guard.Against.NegativeOrZero(userId);
+        _AddAddressClearedEvent();
+        _AddPersonUpdatedEvent();
+
     }
 
     public void RemoveAddress(Address address, int userId)
     {
         Guard.Against.Null(address);
 
-        _AddressExist(address);
+        //_AddressExist(address);
 
         var addressConfig = _address.Single(x => x.WardNo.Equals(address.WardNo) && x.Location.Equals(address.Location) && x.City.Equals(address.City));
         _address.RemoveAll(x => x.WardNo.Equals(address.WardNo) && x.Location.Equals(address.Location) && x.City.Equals(address.City));
 
-        if (!IsTransient())
-        {
-            this.UpdatedBy = Guard.Against.NegativeOrZero(userId);
-            _AddAddressAddedEvent(address);
-            _AddPersonUpdatedEvent();
-        }
+
+        this.UpdatedBy = Guard.Against.NegativeOrZero(userId);
+        _AddAddressRemovedEvent(address);
+        _AddPersonUpdatedEvent();
+
     }
     private void _AddressExist(Address address) => Guard.Against.InvalidInput<Address>(address, nameof(address),
     x => !_address.Any(x => x.WardNo.Equals(address.WardNo) && x.Location.Equals(address.Location) && x.City.Equals(address.City)),
@@ -121,7 +116,7 @@ public class Person : AuditableEntity, IAggregateRoot
         => AddDomainEvent(new AddressClearedEvent(this.Id, this.UpdatedBy!.Value));
 
     private void _AddAddressAddedEvent(Address address)
-        => AddDomainEvent(new AddressAddedEvent(this.Id, address, this.UpdatedBy!.Value));
+        => AddDomainEvent(new AddressAddedEvent(this.Id, address, this.AddedBy));
 
     private void _AddAddressRemovedEvent(Address address)
         => AddDomainEvent(new AddressRemovedEvent(this.Id, address, this.UpdatedBy!.Value));
