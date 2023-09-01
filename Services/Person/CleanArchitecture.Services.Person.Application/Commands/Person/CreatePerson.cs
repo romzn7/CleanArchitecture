@@ -64,7 +64,6 @@ public static class CreatePerson
 
 
             RuleForEach(x => x.Addresses)
-                .NotEmpty()
                .ChildRules(address =>
                {
                    address.RuleFor(x => x.Location)
@@ -75,7 +74,7 @@ public static class CreatePerson
                    address.RuleFor(x => x.City)
                         .NotEmpty()
                         .NotNull()
-                        .WithMessage("{PropertyName} is required.").WithName("City");
+                        .WithMessage("{PropertyName} is required.");
 
                    address.RuleFor(x => x.WardNo)
                         .NotEmpty()
