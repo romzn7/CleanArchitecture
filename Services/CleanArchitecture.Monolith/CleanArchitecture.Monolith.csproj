@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CleanArchitecture.Services.Shared\CleanArchitecture.Services.Shared.csproj" />
+    <ProjectReference Include="..\GymGenius\CleanArchitecture.Services.GymGenius.API\CleanArchitecture.Services.GymGenius.API.csproj" />
     <ProjectReference Include="..\Person\CleanArchitecture.Services.Person.API\CleanArchitecture.Services.Person.API.csproj" />
   </ItemGroup>
 

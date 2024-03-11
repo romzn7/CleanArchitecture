@@ -12,15 +12,15 @@ public class SwaggerOAuthMiddleware
     }
     public async Task InvokeAsync(HttpContext context)
     {
-        //if (IsSwaggerUI(context.Request.Path))
-        //{
-        //    // if user is not authenticated
-        //    if (context.User.Identity is not null && !context.User.Identity.IsAuthenticated)
-        //    {
-        //        await context.ChallengeAsync("OpenIdConnect");
-        //        return;
-        //    }
-        //}
+        if (IsSwaggerUI(context.Request.Path))
+        {
+            // if user is not authenticated
+            if (context.User.Identity is not null && !context.User.Identity.IsAuthenticated)
+            {
+                await context.ChallengeAsync("OpenIdConnect");
+                return;
+            }
+        }
         await next.Invoke(context);
     }
     public bool IsSwaggerUI(PathString pathString)

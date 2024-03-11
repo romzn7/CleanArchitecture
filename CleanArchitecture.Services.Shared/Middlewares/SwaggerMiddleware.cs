@@ -26,10 +26,10 @@ public static class SwaggerMiddleware
             options.SerializeAsV2 = true;
         });
 
-        var ssoSettings = configuration.GetSection(nameof(SSOSettings)).Get<SSOSettings>();
+        //var ssoSettings = configuration.GetSection(nameof(SSOSettings)).Get<SSOSettings>();
 
-        if (ssoSettings == null)
-            throw new InvalidOperationException($"Missing configuration {nameof(SSOSettings)}");
+        //if (ssoSettings == null)
+        //    throw new InvalidOperationException($"Missing configuration {nameof(SSOSettings)}");
 
         // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
         // specifying the Swagger JSON endpoint.
@@ -48,11 +48,11 @@ public static class SwaggerMiddleware
             }
 
             //Dev credentials
-            c.OAuthClientId(ssoSettings.ClientId);
+            c.OAuthClientId("imagegalleryclient");
 
             //Enable for dev for now since we cannot add any claims to auth
             if (env.IsDevelopmentEnvironment())
-                c.OAuthClientSecret(ssoSettings.ClientSecret);
+                c.OAuthClientSecret("apisecret");
 
             c.OAuthUsePkce();
 

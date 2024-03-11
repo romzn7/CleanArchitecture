@@ -19,19 +19,18 @@ public static class SwaggerExtensions
             Scheme = "Bearer",
             In = ParameterLocation.Header,
             Name = "Authorization",
-            //Flows = new OpenApiOAuthFlows
-            //{
-            //    AuthorizationCode = new OpenApiOAuthFlow
-            //    {
-            //        AuthorizationUrl = new Uri($"{ssoSettings.Authority}/connect/authorize", UriKind.Absolute),
-            //        TokenUrl = new Uri($"{ssoSettings.Authority}/connect/token", UriKind.Absolute),
-            //        Scopes = {
-            //                {  "skynet.fullaccess" , "SKYNET API Full access" },
-            //                {  "customidentity.traders" , "Trader claims" },
-            //                {  "openid", "" }
-            //            }
-            //    }
-            //}
+            Flows = new OpenApiOAuthFlows
+            {
+                AuthorizationCode = new OpenApiOAuthFlow
+                {
+                    AuthorizationUrl = new Uri($"https://localhost:5001/connect/authorize", UriKind.Absolute),
+                    TokenUrl = new Uri($"https://localhost:5001/connect/token", UriKind.Absolute),
+                    Scopes = {
+                        {"openid", "openid" },
+                            { "imagegalleryapi.fullaccess", "full access" }
+                                }
+                }
+            }
         });
 
         options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -44,7 +43,7 @@ public static class SwaggerExtensions
                     Name = "Bearer",
                     In = ParameterLocation.Header
                 },
-                new[] { "openid", "email", "skynet.fullaccess", "customidentity.entitycodes" }
+                new[] { "imagegalleryapi.fullaccess", "openid" }
             }
         });
 

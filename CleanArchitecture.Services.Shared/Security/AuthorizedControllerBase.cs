@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 namespace CleanArchitecture.Services.Shared.Security;
 
-//[Authorize(AuthenticationSchemes = "Cookies,Bearer")]
+[Authorize(AuthenticationSchemes = "Cookies,Bearer")]
 public abstract class AuthorizedControllerBase : ControllerBase
 {
     #region User information

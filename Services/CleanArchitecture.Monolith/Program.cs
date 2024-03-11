@@ -1,5 +1,6 @@
 
 
+using CleanArchitecture.Services.GymGenius.API.DependencyResolution;
 using CleanArchitecture.Services.Shared.Application.Behaviours;
 
 var cultureInfo = new CultureInfo("en-US");
@@ -22,13 +23,14 @@ var mvcBuilder = builder.Services.AddMvc();
 builder.Services.AddCleanArchitectureApplication(builder.Configuration);
 
 builder.Services.AddPerson(builder.Environment, builder.Configuration);
-
+builder.Services.AddGymGenius(builder.Environment, builder.Configuration);
 
 // Register the Swagger generator, defining 1 or more Swagger documents
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddApplicationSwaggerGen(builder.Configuration)
-        .AddPersonSwaggerGen();
+        .AddPersonSwaggerGen()
+        .AddGymGeniusSwaggerGen();
         //.UseDateOnlyTimeOnlyStringConverters();
 
     c.FinalizeApplicationSwaggerDocs(builder.Configuration);
@@ -103,6 +105,7 @@ app.UseCleanArchitectureSwagger(builder.Configuration, builder.Environment, endp
 {
     
     endpoints.UsePersonSwaggerEndpoints();
+    endpoints.UseGymGeniusSwaggerEndpoints();
 });
 
 app.UseRouting();

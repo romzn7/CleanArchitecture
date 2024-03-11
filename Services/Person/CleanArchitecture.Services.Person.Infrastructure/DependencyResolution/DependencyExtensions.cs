@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Services.Person.Application.Common.Repositories;
-using CleanArchitecture.Services.Person.Infrastructure.Repositories;
+﻿using CleanArchitecture.Services.Person.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,4 +24,3 @@ public static class DependencyExtensions
         return services;
     }
 }
-

@@ -41,7 +41,7 @@ public static class ServiceCollectionExtensions
 
         services.Configure<SkynetSettings>(configuration.GetSection(nameof(SkynetSettings)));
 
-        services.AddSkyNetSecurity(configuration)
+        services.AddCleanArchitectureSecurity(configuration)
             //.AddSkynetStorageService(configuration)
             .AddEmailSenderService(configuration)
             //.AddCurrentUserProvider()

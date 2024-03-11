@@ -1,5 +1,5 @@
 ﻿namespace CleanArchitecture.Services.Shared.Models.Configurations;
-public class SkyNetSSOSettings
+public class CleanArchitectureSSOSettings
 {
     public string Authority { get; set; }
     public string CommonRingPath { get; set; }

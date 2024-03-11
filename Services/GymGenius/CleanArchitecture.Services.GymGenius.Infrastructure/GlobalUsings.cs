@@ -1,0 +1,15 @@
+﻿global using CleanArchitecture.Services.Shared.Infrastructure.Persistence;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Logging;
+global using MediatR;
+global using CleanArchitecture.Services.GymGenius.Domain.Aggregates.Events.Enumerations;
+global using Humanizer;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using CleanArchitecture.Services.GymGenius.Domain.Aggregates.Events.Entities;
+global using CleanArchitecture.Services.GymGenius.Infrastructure.EntityConfigurations;
+global using CleanArchitecture.Services.Shared.Helpers;
+global using CleanArchitecture.Services.GymGenius.Application.Common.Repositories;
+global using CleanArchitecture.Services.Shared.DomainDesign.SeedWork;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Hosting;
