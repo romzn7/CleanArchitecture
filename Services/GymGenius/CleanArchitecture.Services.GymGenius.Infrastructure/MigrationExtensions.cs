@@ -1,10 +1,6 @@
-﻿using Microsoft.Extensions.Hosting;
-using CleanArchitecture.Services.Shared.Extensions;
-using Microsoft.Extensions.DependencyInjection;
+﻿using CleanArchitecture.Services.Shared.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Services.GymGenius.Infrastructure;
 

@@ -1,9 +1,5 @@
-﻿using CleanArchitecture.Services.Person.Infrastructure;
-using CleanArchitecture.Services.Shared.DomainDesign.SeedWork;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly.Retry;
 using Polly;
@@ -24,6 +20,8 @@ internal class GymGeniusDbContextSeeding
                 if (settings.Value.EnableMigrationSeed)
                 {
                     await _MigrateEnumeration(context, context.EventTypes);
+                    await _MigrateEnumeration(context, context.AcceptedPaymentMethods);
+                    await _MigrateEnumeration(context, context.FacilityTypes);
                 }
             }
         });
@@ -34,8 +32,6 @@ internal class GymGeniusDbContextSeeding
     private async Task _MigrateEnumeration<T>(GymGeniusDbContext context, DbSet<T> entity)
         where T : Enumeration
     {
-
-
         var dbEnumerations = (await entity.ToListAsync()) ?? Enumerable.Empty<T>();
         var localEnumerations = Enumeration.GetAll<T>().Where(c => !dbEnumerations.Select(l => l.Id).Contains(c.Id));
         if (localEnumerations.Any())
@@ -47,7 +43,6 @@ internal class GymGeniusDbContextSeeding
         }
     }
 
-
     private AsyncRetryPolicy _CreatePolicy(ILogger<GymGeniusDbContextSeeding> logger, string prefix, int retries = 3) => Policy.Handle<SqlException>().
             WaitAndRetryAsync(
                 retryCount: retries,
@@ -57,6 +52,5 @@ internal class GymGeniusDbContextSeeding
                     logger.LogWarning(exception, "[{prefix}] Exception {ExceptionType} with message {Message} detected on attempt {retry} of {retries} {TotalMilliseconds}", prefix, exception.GetType().Name, exception.Message, retry, retries, timeSpan.TotalMilliseconds);
                 }
             );
-
     #endregion
 }

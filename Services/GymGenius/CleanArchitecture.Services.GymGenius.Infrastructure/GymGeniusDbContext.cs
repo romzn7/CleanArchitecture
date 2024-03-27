@@ -1,4 +1,8 @@
-﻿namespace CleanArchitecture.Services.GymGenius.Infrastructure;
+﻿using CleanArchitecture.Services.GymGenius.Domain.Aggregates.Tenant.Entities;
+using CleanArchitecture.Services.GymGenius.Domain.Aggregates.Tenant.Enumerations;
+using CleanArchitecture.Services.Person.Infrastructure.EntityConfigurations;
+
+namespace CleanArchitecture.Services.GymGenius.Infrastructure;
 
 public class GymGeniusDbContext : DbContextBase<GymGeniusDbContext>
 {
@@ -14,6 +18,9 @@ public class GymGeniusDbContext : DbContextBase<GymGeniusDbContext>
 
     public virtual DbSet<EventLog> EventLogs { get; set; } = null!;
     public virtual DbSet<EventType> EventTypes { get; set; } = null!;
+    public virtual DbSet<FacilityType> FacilityTypes { get; set; } = null!;
+    public virtual DbSet<AcceptedPaymentMethod> AcceptedPaymentMethods { get; set; } = null!;
+    public virtual DbSet<Tenant> Tenants { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,6 +28,9 @@ public class GymGeniusDbContext : DbContextBase<GymGeniusDbContext>
         base.OnModelCreating(modelBuilder);
         modelBuilder
            .ApplyConfiguration(new EventLogEntityConfiguration())
+           .ApplyConfiguration(new EventTypeEntityConfiguration())
+           .ApplyConfiguration(new FacilityTypesEntityConfiguration())
+           .ApplyConfiguration(new AcceptedPaymentMethodEntityConfiguration())
            ;
     }
 }

@@ -5,7 +5,7 @@ namespace CleanArchitecture.Services.GymGenius.Domain.Aggregates.Events.Enumerat
 
 public class EventType : Enumeration, IAggregateRoot
 {
-    #region Media Type Event Types
+    #region Tenant Event Types
     public static readonly EventType TenantAdded = new EventType(1, nameof(TenantAdded).Humanize().Titleize());
     public static readonly EventType TenantDeleted = new EventType(2, nameof(TenantDeleted).Humanize().Titleize());
     public static readonly EventType TenantUpdated = new EventType(3, nameof(TenantUpdated).Humanize().Titleize());
